@@ -5,6 +5,7 @@ namespace crowdlib
     {
         private Point pos;
 
+
         public Point Pos
         {
             get { return pos; }
@@ -15,6 +16,16 @@ namespace crowdlib
 
         public Person Person { get; set; }
         public bool IsEmpty { get { return Person == null; } }
+
+        public Cell(Point pos)
+        {
+            Pos = pos;
+        }
+
+        public Cell(int x, int y)
+        {
+            Pos = new Point(x, y);
+        }
 
     }
 }

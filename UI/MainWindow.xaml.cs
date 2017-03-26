@@ -1,4 +1,5 @@
-﻿using System;
+﻿using crowdlib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace UI
 {
@@ -22,6 +24,30 @@ namespace UI
         public MainWindow()
         {
             InitializeComponent();
+            //
+            timer.Tick += Timer_Tick_Drawer;
+            timer.Interval = TimeSpan.FromMilliseconds(20) ;
+            timer.Start();
+        }
+
+        private void Timer_Tick_Drawer(object sender, EventArgs e)
+        {
+            Draw();
+        }
+
+        private void Draw()
+        {
+            r.DrawCells(canvas1, world.Cells);
+        }
+
+        World world = new World();
+        Renderer r = new Renderer();
+        DispatcherTimer timer = new DispatcherTimer();
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                world = new World();
         }
     }
 }

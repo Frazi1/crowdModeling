@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" KeyDown="Window_KeyDown">
     <Grid>
-        <Rectangle Fill="Aqua" Stroke="Black" Margin="211,110,210,145"/>
+        <Canvas x:Name="canvas1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Window>
