@@ -35,15 +35,16 @@ namespace crowdlib
             Thread = new Thread(new ThreadStart(Go));
             Thread.IsBackground = true;
             Thread.Name = $"thread{ID}";
-            Thread.Start();
+            //Thread.Start();
 
 
         }
-
+        public void Start()
+        {
+            Thread.Start();
+        }
         private void Go()
         {
-
-
             Monitor.Enter(CurrentCell);
 
             while (CurrentCell != world.ExitCell)
@@ -63,7 +64,7 @@ namespace crowdlib
                 //this.CurrentCell = null;
             }
             ExitReached(this, new ExitReachedEventArgs(this));
-            Thread.Abort();
+            //Thread.Abort();
             return;
         }
         private void MoveTo(Cell cell)

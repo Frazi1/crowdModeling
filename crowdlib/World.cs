@@ -29,8 +29,16 @@ namespace crowdlib
             {
                 SpawnRandomPerson();
             }
+            Start();
         }
 
+        public void Start()
+        {
+            foreach (var p in People)
+            {
+                p.Start();
+            }
+        }
         public bool SpawnPerson(int x, int y)
         {
             if (Cells[x, y].IsEmpty)
@@ -51,7 +59,6 @@ namespace crowdlib
             e.Person.CurrentCell.Person = null;
             e.Person.ExitReached -= P_ExitReached;
         }
-
         public void SpawnRandomPerson()
         {
             Random rnd = new Random();

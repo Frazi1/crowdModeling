@@ -31,7 +31,7 @@ namespace UI
                     if (cells[j, i].IsExit)
                     {
                         r.Stroke = Brushes.Red;
-                        r.StrokeThickness = 2;
+                        r.StrokeThickness = 5;
                     }
                     else
                     {
