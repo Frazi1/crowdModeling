@@ -46,29 +46,20 @@ namespace crowdlib
         private void Go()
         {
             Monitor.Enter(CurrentCell);
-
             while (CurrentCell != world.ExitCell)
             {
-                //FileStream fs = new FileStream("log.txt", FileMode.Append);
-                //StreamWriter sw = new StreamWriter(fs);
-                //sw.AutoFlush = true;
                 var nextCell = SelectCell();
-
                 MoveTo(nextCell);
-                //sw.WriteLine(Thread.CurrentThread.Name);
-                //sw.Close();
                 Thread.Sleep(1000);
-                //CurrentCell.Person = null;
-                //Monitor.Pulse(CurrentCell);
-                //Monitor.Exit(CurrentCell);
-                //this.CurrentCell = null;
             }
+            Monitor.Pulse(CurrentCell);
+            Monitor.Exit(CurrentCell);
             ExitReached(this, new ExitReachedEventArgs(this));
-            //Thread.Abort();
-            return;
         }
         private void MoveTo(Cell cell)
         {
+            Monitor.Enter(cell);
+
             if (CurrentCell != null)
             {
                 CurrentCell.Person = null;
@@ -77,7 +68,7 @@ namespace crowdlib
                 CurrentCell = null;
             }
 
-            Monitor.Enter(cell);
+            //Monitor.Enter(cell);
             cell.Person = this;
             CurrentCell = cell;
         }
@@ -87,27 +78,28 @@ namespace crowdlib
             int targetX = world.ExitCell.Pos.X;
             int targetY = world.ExitCell.Pos.Y;
 
-            if (this.Pos.X > targetX)
+            if (Pos.X > targetX)
             {
                 --nextX;
             }
-            else if (Pos.X == targetX)
-            { }
-            else
+
+            else if (Pos.X < targetX)
             {
                 ++nextX;
             }
 
-            if (this.Pos.Y > targetY)
+            if (Pos.Y > targetY)
             {
                 --nextY;
             }
-            else if (Pos.Y == targetY)
-            { }
-            else
+
+            else if (Pos.Y < targetY)
             {
                 ++nextY;
             }
+
+            //
+
             return world.Cells[nextX, nextY];
         }
 

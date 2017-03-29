@@ -22,6 +22,9 @@ namespace UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        World world;
+        DispatcherTimer timer = new DispatcherTimer();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -47,12 +50,10 @@ namespace UI
 
         private void Draw()
         {
-            r.DrawCells(canvas1, world.Cells, world.People);
+            Renderer.DrawCanvas(canvas1, world.Cells, world.People);
         }
         private int PeopleToCreate { get { return int.Parse(WFH_nud.Child.Text); } }
-        World world;
-        Renderer r;
-        DispatcherTimer timer = new DispatcherTimer();
+
 
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -63,7 +64,6 @@ namespace UI
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             world = new World(PeopleToCreate);
-            r = new Renderer();
         }
     }
 }

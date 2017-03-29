@@ -11,12 +11,19 @@ namespace UI
 {
     public class Renderer
     {
-        public void DrawCells(Canvas c, Cell[,] cells, List<Person> people)
+        public static void DrawCanvas(Canvas c, Cell[,] cells, List<Person> people)
+        {
+            double cell_size = 50;
+
+            DrawCells(c,cells, cell_size);
+            DrawPeople(c, people, cell_size);
+
+        }
+        public static void DrawCells(Canvas c, Cell[,] cells, double cell_size)
         {
             c.Children.Clear();
 
             int cell_number = cells.GetLength(0);
-            double cell_size = 50;
 
             for (int i = 0; i < cell_number; i++)
             {
@@ -40,12 +47,13 @@ namespace UI
                     c.Children.Add(r);
                 }
             }
-            //Рисуем кружочки
-            //if (!cells[j, i].IsEmpty)
-            //{
+        }
+
+        private static void DrawPeople(Canvas c, List<Person> people, double cell_size)
+        {
             for (int k = 0; k < people.Count; k++)
             {
-                
+
                 var p = people[k];
                 if (p.CurrentCell != null)
                 {
