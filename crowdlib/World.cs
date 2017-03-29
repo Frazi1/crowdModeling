@@ -14,7 +14,7 @@ namespace crowdlib
 
         public List<Person> People = new List<Person>();
 
-        public World()
+        public World(int n)
         {
             for (int i = 0; i < SIZE; i++)
             {
@@ -24,22 +24,32 @@ namespace crowdlib
                 }
             }
             GenerateExit();
-            SpawnRandomPerson();
-            SpawnRandomPerson();
-            SpawnRandomPerson();
+
+            for (int i = 0; i < n; i++)
+            {
+                SpawnRandomPerson();
+            }
         }
 
         public bool SpawnPerson(int x, int y)
         {
-            if (Cells[y, x].IsEmpty)
+            if (Cells[x, y].IsEmpty)
             {
                 Person p = new Person(Cells[x, y], ++personCounter, this);
+                p.ExitReached += P_ExitReached;
                 --freeCells;
                 Cells[x, y].Person = p;
                 People.Add(p);
                 return true;
             }
             return false;
+        }
+
+        private void P_ExitReached(object sender, ExitReachedEventArgs e)
+        {
+            People.Remove(e.Person);
+            e.Person.CurrentCell.Person = null;
+            e.Person.ExitReached -= P_ExitReached;
         }
 
         public void SpawnRandomPerson()
@@ -78,7 +88,5 @@ namespace crowdlib
             Cells[x, y].IsExit = true;
             ExitCell = Cells[x, y];
         }
-
-
     }
 }

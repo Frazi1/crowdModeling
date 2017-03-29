@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" KeyDown="Window_KeyDown">
+        Title="MainWindow" Height="350" Width="687" KeyDown="Window_KeyDown" Loaded="Window_Loaded">
     <Grid>
-        <Canvas x:Name="canvas1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Canvas x:Name="canvas1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,61,0"/>
+        <WindowsFormsHost x:Name="WFH_nud" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="575,6,0,0"/>
     </Grid>
 </Window>
